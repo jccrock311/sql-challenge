@@ -20,7 +20,7 @@ CREATE TABLE "titles" (
 CREATE TABLE "salaries" (
     "emp_no" INT NOT NULL,
     "salary" INT NOT NULL,
-  	PRIMARY KEY ("emp_no","salary")
+    PRIMARY KEY ("emp_no","salary")
 );
 
 CREATE TABLE "department" (
@@ -40,3 +40,21 @@ CREATE TABLE "dept_manager" (
     "emp_no" INT  NOT NULL,
     PRIMARY KEY ("dept_no","emp_no")
 );
+
+ALTER TABLE "employee" ADD CONSTRAINT "foreign_employee_title"
+FOREIGN KEY("emp_title_id") REFERENCES "titles" ("title_id");
+
+ALTER TABLE "salaries" ADD CONSTRAINT "foreign_salaries_emp_no"
+FOREIGN KEY("emp_no") REFERENCES "employee" ("emp_no");
+
+ALTER TABLE "dept_emp" ADD CONSTRAINT "foreign_dept_emp_no"
+FOREIGN KEY("emp_no") REFERENCES "employee" ("emp_no");
+
+ALTER TABLE "dept_emp" ADD CONSTRAINT "foreign_dept_dept_no"
+FOREIGN KEY("dept_no") REFERENCES "department" ("dept_no");
+
+ALTER TABLE "dept_manager" ADD CONSTRAINT "foreign_manager_dept_no"
+FOREIGN KEY("dept_no") REFERENCES "department" ("dept_no");
+
+ALTER TABLE "dept_manager" ADD CONSTRAINT "foreign_manager_emp_no"
+FOREIGN KEY("emp_no") REFERENCES "employee" ("emp_no");
